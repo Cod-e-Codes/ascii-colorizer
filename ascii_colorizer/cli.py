@@ -11,7 +11,7 @@ import sys
 import os
 from typing import Optional
 
-from ascii_colorizer import ImageProcessor, VideoProcessor, Renderer
+from . import ImageProcessor, VideoProcessor, Renderer
 
 # Try to import GPU processors
 try:
