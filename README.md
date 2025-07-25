@@ -120,6 +120,7 @@ ascii-colorizer --file image.jpg --gpu --benchmark
 
 | Option | Description |
 |--------|-------------|
+| `--help`, `-h` | Show help message and exit |
 | `--file`, `-f` | Path to image or video file |
 | `--width`, `-w` | Override output width |
 | `--height` | Override maximum height |
@@ -140,6 +141,7 @@ ascii-colorizer --file image.jpg --gpu --benchmark
 | `--gpu-batch-size` | GPU batch size (default: 4) |
 | `--benchmark` | Benchmark GPU vs CPU performance |
 | `--gpu-info` | Show GPU information |
+| `--version` | Show version and exit |
 
 ## Requirements
 
