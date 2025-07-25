@@ -11,7 +11,7 @@ Convert images and videos into colored ASCII art for terminal display using ANSI
 - **Video Processing**: Convert MP4, AVI, MOV, MKV, WebM, and other formats
 - **Color Support**: TrueColor (24-bit) and 256-color terminal modes
 - **GPU Acceleration**: CUDA support for faster processing (optional)
-- **Performance Optimization**: Automatic complexity analysis and frame skipping
+- **Performance Optimization**: Optional adaptive complexity analysis and frame skipping
 - **Aspect Ratio Preservation**: Maintains proper image proportions
 - **Cross-Platform**: Windows, macOS, and Linux support
 
@@ -163,8 +163,8 @@ ascii-colorizer --file image.jpg --gpu --benchmark
 
 ## Performance
 
-### Automatic Optimization
-The application automatically analyzes video complexity and optimizes settings:
+### Adaptive Optimization (Optional)
+When using the `--adaptive` flag, the application analyzes video complexity and optimizes settings:
 - **Low/Medium Complexity**: Standard processing
 - **High Complexity**: Automatic frame skipping
 - **Extreme Complexity**: Aggressive optimization
@@ -238,20 +238,6 @@ ascii-colorizer --file video.mp4 --smooth
 
 # Reduce dimensions
 ascii-colorizer --file video.mp4 --width 80 --height 20
-```
-
-## Development
-
-```bash
-# Development installation
-pip install -e ".[dev]"
-
-# Run tests
-pytest
-
-# Code formatting
-black .
-flake8 .
 ```
 
 ## License
