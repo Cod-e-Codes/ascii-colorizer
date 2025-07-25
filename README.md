@@ -242,10 +242,10 @@ ascii-colorizer --file video.mp4 --smooth
 ascii-colorizer --file video.mp4 --width 80 --height 20
 ```
 
-## License
-
-MIT License - see LICENSE file for details.
-
 ## Contributing
 
-Contributions are welcome. Please open an issue for major changes before submitting a pull request. 
+Contributions are welcome. Please open an issue for major changes before submitting a pull request.
+
+## License
+
+[MIT License](LICENSE) - see [LICENSE](LICENSE) file for details. 
