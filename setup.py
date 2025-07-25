@@ -55,13 +55,13 @@ setup(
     install_requires=read_requirements(),
     
     # Python version requirement
-    python_requires='>=3.7',
+    python_requires='>=3.12',
     
     # Entry points for CLI
     entry_points={
         'console_scripts': [
-            'ascii-colorizer=cli:main',
-            'asciify=cli:main',  # Alternative shorter command
+            'ascii-colorizer=ascii_colorizer.cli:main',
+            'asciify=ascii_colorizer.cli:main',  # Alternative shorter command
         ],
     },
     
@@ -73,11 +73,7 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'Topic :: Multimedia :: Graphics :: Graphics Conversion',
         'Topic :: Multimedia :: Video :: Conversion',
         'Topic :: Terminals',
