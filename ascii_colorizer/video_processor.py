@@ -190,7 +190,8 @@ class VideoProcessor:
     
     def frame_generator(self, filepath: str, target_width: int = None, 
                        max_height: int = None, use_color: bool = True,
-                       skip_frames: int = 0, adaptive_performance: bool = True) -> Generator[List[str], None, None]:
+                       skip_frames: int = 0, adaptive_performance: bool = True,
+                       max_frames: Optional[int] = None) -> Generator[List[str], None, None]:
         """
         Generator that yields ASCII frames from a video with performance optimizations.
         
@@ -264,6 +265,10 @@ class VideoProcessor:
                 yield ascii_lines
                 frame_count += 1
                 processed_frames += 1
+                
+                # Stop if we've reached max_frames
+                if max_frames is not None and processed_frames >= max_frames:
+                    break
                 
                 # Gentle performance feedback (less intrusive)
                 if adaptive_performance and processed_frames % 50 == 0:  # Every 50 frames instead of 30

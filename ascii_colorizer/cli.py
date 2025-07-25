@@ -76,6 +76,12 @@ def create_parser() -> argparse.ArgumentParser:
     )
     
     parser.add_argument(
+        '--duration',
+        type=float,
+        help='Limit video playback to specified seconds'
+    )
+    
+    parser.add_argument(
         '--no-color',
         action='store_true',
         help='Disable color output'
@@ -438,8 +444,16 @@ def handle_video(args, video_processor, renderer: Renderer) -> None:
         # Get video info for frame count and complexity
         video_info = video_processor.get_video_info(args.file)
         total_frames = video_info.get('frame_count', None)
+        fps = video_info.get('fps', args.fps)
         complexity = video_info.get('complexity_score', 'medium')
         file_size = video_info.get('file_size_mb', 0)
+        
+        # Calculate max frames based on duration if specified
+        if args.duration is not None:
+            max_frames = int(args.duration * fps)
+            if max_frames < total_frames:
+                print(f"Limiting playback to {args.duration:.1f} seconds ({max_frames} frames)")
+                total_frames = max_frames
         
         # Show video complexity info
         print(f"Video complexity: {complexity} ({file_size}MB, {total_frames} frames)")
@@ -478,7 +492,8 @@ def handle_video(args, video_processor, renderer: Renderer) -> None:
                 max_height=args.height,
                 use_color=not args.no_color,
                 skip_frames=args.skip_frames,
-                adaptive_performance=args.adaptive
+                adaptive_performance=args.adaptive,
+                max_frames=total_frames
             )
         else:
             frame_gen = video_processor.frame_generator(
@@ -487,7 +502,8 @@ def handle_video(args, video_processor, renderer: Renderer) -> None:
                 max_height=args.height,
                 use_color=not args.no_color,
                 skip_frames=args.skip_frames,
-                adaptive_performance=args.adaptive
+                adaptive_performance=args.adaptive,
+                max_frames=total_frames
             )
         
         # Render animation

@@ -87,6 +87,9 @@ ascii-colorizer --file movie.mp4
 # Control playback speed
 ascii-colorizer --file video.mp4 --fps 20
 
+# Play first 5 seconds
+ascii-colorizer --file video.mp4 --duration 5
+
 # Extract specific frame
 ascii-colorizer --file video.mp4 --frame 100
 
@@ -125,6 +128,7 @@ ascii-colorizer --file image.jpg --gpu --benchmark
 | `--width`, `-w` | Override output width |
 | `--height` | Override maximum height |
 | `--fps` | Video playback FPS (default: 10.0) |
+| `--duration` | Limit video playback to specified seconds |
 | `--no-color` | Disable color output |
 | `--detailed` | Use detailed ASCII character set |
 | `--save`, `-s` | Save ASCII art to file |
