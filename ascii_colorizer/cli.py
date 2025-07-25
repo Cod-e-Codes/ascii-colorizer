@@ -22,7 +22,7 @@ except ImportError:
     GPUImageProcessor = None
     GPUVideoProcessor = None
 
-from ascii_colorizer.utils import validate_file_type, get_terminal_size
+from ascii_colorizer.utils import validate_file_type, get_terminal_size, run_neofetch
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -145,6 +145,12 @@ def create_parser() -> argparse.ArgumentParser:
         '--adaptive',
         action='store_true',
         help='Enable adaptive performance optimizations (experimental)'
+    )
+    
+    parser.add_argument(
+        '--then-neofetch',
+        action='store_true',
+        help='Run neofetch after video completion'
     )
     
     # GPU acceleration options
@@ -518,6 +524,11 @@ def handle_video(args, video_processor, renderer: Renderer) -> None:
                 print(f"   GPU processed: {stats['frames_processed_gpu']} ({stats['gpu_usage_percentage']:.1f}%)")
                 print(f"   Average GPU time: {stats['avg_gpu_time_per_frame']:.3f}s/frame")
                 print(f"   Peak GPU memory: {stats['memory_usage_peak_mb']:.1f}MB")
+        
+        # Run neofetch if requested
+        if args.then_neofetch:
+            print("\nRunning neofetch...")
+            run_neofetch()
         
     except Exception as e:
         print(f"Error processing video: {e}", file=sys.stderr)

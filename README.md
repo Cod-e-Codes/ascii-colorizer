@@ -101,6 +101,9 @@ ascii-colorizer --file video.mp4 --gpu --gpu-batch-size 8
 
 # Smooth playback
 ascii-colorizer --file video.mp4 --smooth
+
+# Play video then show system info
+ascii-colorizer --file video.mp4 --then-neofetch
 ```
 
 ### Performance Options
@@ -137,6 +140,7 @@ ascii-colorizer --file image.jpg --gpu --benchmark
 | `--preview` | Show preview frames only |
 | `--info` | Show file information |
 | `--smooth` | Enable smooth video playback |
+| `--then-neofetch` | Run neofetch after video completion |
 | `--fast` | Optimize for performance |
 | `--performance` | Show performance recommendations |
 | `--adaptive` | Enable adaptive optimizations |

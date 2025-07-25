@@ -176,6 +176,46 @@ def supports_truecolor() -> bool:
     return False
 
 
+def run_neofetch() -> None:
+    """
+    Run neofetch command and capture its output.
+    
+    Returns:
+        None: Prints neofetch output directly
+    """
+    import subprocess
+    import platform
+    
+    try:
+        # On Windows, try winfetch first, then neofetch
+        if platform.system() == 'Windows':
+            try:
+                subprocess.run(['winfetch'], check=True)
+                return
+            except (subprocess.CalledProcessError, FileNotFoundError):
+                pass
+        
+        # Try neofetch
+        try:
+            subprocess.run(['neofetch'], check=True)
+            return
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            print("\nError: neofetch not found. Please install neofetch:")
+            if platform.system() == 'Windows':
+                print("  scoop install neofetch")
+                print("  or")
+                print("  winget install neofetch")
+            elif platform.system() == 'Darwin':  # macOS
+                print("  brew install neofetch")
+            else:  # Linux
+                print("  sudo apt install neofetch  # Debian/Ubuntu")
+                print("  sudo dnf install neofetch  # Fedora")
+                print("  sudo pacman -S neofetch    # Arch")
+            
+    except Exception as e:
+        print(f"\nError running neofetch: {e}")
+
+
 def validate_file_type(filepath: str) -> str:
     """
     Validate and determine file type.
