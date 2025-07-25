@@ -248,4 +248,4 @@ Contributions are welcome. Please open an issue for major changes before submitt
 
 ## License
 
-[MIT License](LICENSE) - see [LICENSE](LICENSE) file for details. 
+MIT LICENSE - see [LICENSE](LICENSE) file for details. 
