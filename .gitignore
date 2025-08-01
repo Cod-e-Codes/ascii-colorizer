@@ -153,7 +153,7 @@ ascii_*.txt
 *.mov
 *.jpg
 *.jpeg
-*.png
+# *.png
 # *.gif
 *.bmp
 *.tiff

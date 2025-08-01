@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![Video Demo](demo.gif)
-![Image Demo](millenniumfalcon.png)
+![Image Demo](astronaut.png)
 
 Convert images and videos into colored ASCII art for terminal display using ANSI escape sequences. Supports both CPU and GPU acceleration via PyTorch/CUDA.
 
