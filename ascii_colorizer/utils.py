@@ -121,10 +121,13 @@ def rgb_to_ansi_256color(r: int, g: int, b: int) -> str:
     Returns:
         str: ANSI escape sequence for 256-color mode
     """
+    # Use Python int so numpy uint8 pixels (common from PIL->np.array) do not wrap
+    # on r*5; uint8 overflows e.g. 255*5 -> RuntimeWarning and wrong colors.
+    ri, gi, bi = int(r), int(g), int(b)
     # Convert to 6-level values (0-5)
-    r6 = int(r * 5 / 255)
-    g6 = int(g * 5 / 255)
-    b6 = int(b * 5 / 255)
+    r6 = (ri * 5) // 255
+    g6 = (gi * 5) // 255
+    b6 = (bi * 5) // 255
     
     # Calculate color index (16-231 are the color cube)
     color_index = 16 + (36 * r6) + (6 * g6) + b6
