@@ -15,6 +15,10 @@ venv/
 test_*.txt
 output_*.txt
 ascii_*.txt
+demo-video-ascii.txt
+demo-image-ascii.txt
+demo-video-source.mp4
+demo-image.cast
 
 # IDE files
 .vscode/

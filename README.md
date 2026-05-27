@@ -21,12 +21,12 @@ Download the archive for your platform from [GitHub Releases](https://github.com
 | macOS (Intel) | `ascii-colorizer-x86_64-apple-darwin.tar.gz` |
 | macOS (Apple Silicon) | `ascii-colorizer-aarch64-apple-darwin.tar.gz` |
 
-Releases are published when a version tag is pushed (for example `v0.1.0`).
+Releases are published when a version tag is pushed (for example `v0.1.1`).
 
 ### Install with Cargo
 
 ```bash
-cargo install --git https://github.com/Cod-e-Codes/ascii-colorizer.git --locked
+cargo install --git https://github.com/Cod-e-Codes/ascii-colorizer.git --tag v0.1.1 --locked
 ```
 
 ### Build from source
