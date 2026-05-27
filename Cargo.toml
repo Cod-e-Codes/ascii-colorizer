@@ -1,0 +1,24 @@
+[package]
+name = "ascii-colorizer"
+version = "0.1.0"
+edition = "2024"
+description = "Render images and videos as full-color ASCII art in the terminal"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/Cod-e-Codes/ascii-colorizer"
+homepage = "https://github.com/Cod-e-Codes/ascii-colorizer"
+keywords = ["ascii", "terminal", "cli", "image", "video"]
+categories = ["command-line-utilities", "multimedia"]
+
+[dependencies]
+anyhow = "1.0.102"
+clap = { version = "4.6.1", features = ["derive"] }
+crossterm = "0.29.0"
+ctrlc = "3.5.2"
+image = "0.25.10"
+rayon = "1.12.0"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
