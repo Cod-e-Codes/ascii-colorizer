@@ -192,22 +192,30 @@ fn render_ascii_video(
         None => Some(TerminalPlaybackGuard::enter()?),
     };
     let mut frame_index: usize = 0;
+    let mut frame_buffer = vec![0_u8; frame_size];
+    let mut ascii_buffer = String::new();
 
     loop {
         if interrupted.load(Ordering::SeqCst) {
             break;
         }
         let frame_started = Instant::now();
-        let mut buffer = vec![0_u8; frame_size];
 
-        match stdout.read_exact(&mut buffer) {
+        match stdout.read_exact(&mut frame_buffer) {
             Ok(()) => {
-                let image =
-                    ImageBuffer::<Rgb<u8>, Vec<u8>>::from_raw(config.width, target_height, buffer)
-                        .context("failed to decode ffmpeg raw frame")?;
-                let frame = DynamicImage::ImageRgb8(image);
+                let rgb_image = ImageBuffer::<Rgb<u8>, Vec<u8>>::from_raw(
+                    config.width,
+                    target_height,
+                    frame_buffer,
+                )
+                .context("failed to decode ffmpeg raw frame")?;
+                let frame = DynamicImage::ImageRgb8(rgb_image);
                 // Video frames are already scaled by ffmpeg before shared rendering.
-                let ascii = render_resized_image(&frame, config);
+                render_resized_image_into(&frame, config, &mut ascii_buffer);
+                frame_buffer = match frame {
+                    DynamicImage::ImageRgb8(image) => image.into_raw(),
+                    _ => unreachable!("frame is always ImageRgb8"),
+                };
 
                 if let Some(writer) = &mut file_writer {
                     if frame_index > 0 {
@@ -216,11 +224,11 @@ fn render_ascii_video(
                             .context("failed to write frame separator")?;
                     }
                     writer
-                        .write_all(ascii.as_bytes())
+                        .write_all(ascii_buffer.as_bytes())
                         .context("failed to write frame output")?;
                 } else {
                     if let Some(guard) = &mut terminal_guard {
-                        guard.draw_frame(&ascii)?;
+                        guard.draw_frame(&ascii_buffer)?;
                     }
 
                     let elapsed = frame_started.elapsed();
@@ -354,7 +362,9 @@ fn probe_video_dimensions(path: &Path) -> Result<(u32, u32)> {
 
 fn render_ascii_image(image: &DynamicImage, config: AsciiConfig) -> String {
     let resized = resize_for_ascii(image, config.width, config.max_height);
-    render_resized_image(&resized, config)
+    let mut output = String::new();
+    render_resized_image_into(&resized, config, &mut output);
+    output
 }
 
 fn flatten_rgba_over_black(r: u8, g: u8, b: u8, a: u8) -> (u8, u8, u8) {
@@ -367,14 +377,26 @@ fn flatten_rgba_over_black(r: u8, g: u8, b: u8, a: u8) -> (u8, u8, u8) {
     (blend(r), blend(g), blend(b))
 }
 
-fn render_resized_image(image: &DynamicImage, config: AsciiConfig) -> String {
+fn render_resized_image_into(image: &DynamicImage, config: AsciiConfig, output: &mut String) {
     let (width, height) = image.dimensions();
+    let width = width as usize;
+    let height = height as usize;
+    let bytes_per_cell = if matches!(config.color_mode, ColorMode::Truecolor) {
+        24
+    } else {
+        1
+    };
+    let estimated_len = height * (width * bytes_per_cell + 1);
+    output.clear();
+    if output.capacity() < estimated_len {
+        output.reserve(estimated_len - output.capacity());
+    }
 
-    let rows: Vec<String> = (0..height)
+    let rows: Vec<String> = (0..height as u32)
         .into_par_iter()
         .map(|y| {
-            let mut row = String::with_capacity(width as usize * 24);
-            for x in 0..width {
+            let mut row = String::with_capacity(width * bytes_per_cell);
+            for x in 0..width as u32 {
                 let [r, g, b, a] = image.get_pixel(x, y).0;
                 let (r, g, b) = flatten_rgba_over_black(r, g, b, a);
                 let symbol = map_luminance_to_char(r, g, b, config.charset);
@@ -388,7 +410,9 @@ fn render_resized_image(image: &DynamicImage, config: AsciiConfig) -> String {
         })
         .collect();
 
-    rows.concat()
+    for row in rows {
+        output.push_str(&row);
+    }
 }
 
 fn resize_for_ascii(

@@ -62,7 +62,7 @@ ascii-colorizer --file ./video.mp4 --type video --fps 10 --save output.txt
 
 Notes:
 
-- Video output is streamed frame by frame to avoid loading all frames into memory.
+- Video output is streamed frame by frame to avoid loading all frames into memory. Frame pixel and ASCII buffers are reused across frames to reduce allocations during playback.
 - Saved video output uses a form feed separator between frames.
 - Live playback runs in an alternate terminal screen and restores the previous screen on exit.
 - Ctrl+C exits video playback cleanly and restores terminal state.
