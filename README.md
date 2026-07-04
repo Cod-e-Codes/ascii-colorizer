@@ -39,6 +39,12 @@ cargo build --release
 
 The binary is at `target/release/ascii-colorizer` (`.exe` on Windows).
 
+## Demo
+
+<video src="demo.mp4" autoplay loop muted playsinline width="640"></video>
+
+Source clip: [Big Buck Bunny trailer](https://peach.blender.org/) (CC BY 3.0, Blender Foundation).
+
 ## Usage
 
 Image:
