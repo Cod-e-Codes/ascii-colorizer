@@ -2,6 +2,12 @@
 
 Rust CLI that converts images and videos into colored ASCII art for terminal display.
 
+## Demo
+
+![ascii-colorizer rendering Big Buck Bunny in truecolor ASCII](demo.gif)
+
+Source clip: [Big Buck Bunny trailer](https://peach.blender.org/) (CC BY 3.0, Blender Foundation). [Full demo video](demo.mp4).
+
 ## Requirements
 
 - A terminal with ANSI color support (TrueColor recommended)
@@ -38,12 +44,6 @@ cargo build --release
 ```
 
 The binary is at `target/release/ascii-colorizer` (`.exe` on Windows).
-
-## Demo
-
-![ascii-colorizer rendering Big Buck Bunny in truecolor ASCII](demo.gif)
-
-Source clip: [Big Buck Bunny trailer](https://peach.blender.org/) (CC BY 3.0, Blender Foundation). [Full demo video](demo.mp4).
 
 ## Usage
 
