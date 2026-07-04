@@ -41,9 +41,9 @@ The binary is at `target/release/ascii-colorizer` (`.exe` on Windows).
 
 ## Demo
 
-<video src="demo.mp4" autoplay loop muted playsinline width="640"></video>
+![ascii-colorizer rendering Big Buck Bunny in truecolor ASCII](demo.gif)
 
-Source clip: [Big Buck Bunny trailer](https://peach.blender.org/) (CC BY 3.0, Blender Foundation).
+Source clip: [Big Buck Bunny trailer](https://peach.blender.org/) (CC BY 3.0, Blender Foundation). [Full demo video](demo.mp4).
 
 ## Usage
 
