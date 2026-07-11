@@ -1,6 +1,6 @@
 [package]
 name = "ascii-colorizer"
-version = "0.1.4"
+version = "0.1.5"
 edition = "2024"
 description = "Render images and videos as full-color ASCII art in the terminal"
 license = "MIT"
