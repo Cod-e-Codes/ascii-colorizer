@@ -116,7 +116,7 @@ dependencies = [
 
 [[package]]
 name = "ascii-colorizer"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "anyhow",
  "clap",
